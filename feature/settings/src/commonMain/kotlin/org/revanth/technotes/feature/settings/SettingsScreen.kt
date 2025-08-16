@@ -29,12 +29,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import kmp_project_template.feature.settings.generated.resources.Res
-import kmp_project_template.feature.settings.generated.resources.feature_settings_change_theme_placeholder_text
-import kmp_project_template.feature.settings.generated.resources.feature_settings_change_theme_text
 import org.jetbrains.compose.resources.stringResource
 import org.revanth.technotes.core.designsystem.icon.AppIcons
 import org.revanth.technotes.core.ui.scaffold.KptScaffold
+import technotes.feature.settings.generated.resources.Res
+import technotes.feature.settings.generated.resources.feature_settings_change_theme_placeholder_text
+import technotes.feature.settings.generated.resources.feature_settings_change_theme_text
 import template.core.base.analytics.AnalyticsHelper
 import template.core.base.analytics.TrackScreenView
 import template.core.base.analytics.rememberAnalyticsHelper
