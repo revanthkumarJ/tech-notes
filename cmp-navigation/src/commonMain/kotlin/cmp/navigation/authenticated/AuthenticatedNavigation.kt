@@ -35,15 +35,9 @@ internal fun NavGraphBuilder.authenticatedGraph(
     navigation<AuthenticatedGraphRoute>(
         startDestination = AuthenticatedNavbarRoute,
     ) {
-        authenticatedNavbarGraph(
-            navigateToSettingsScreen = navController::navigateToSettings,
-        )
+        authenticatedNavbarGraph()
 
         notificationDestination(
-            onBackClick = navController::popBackStack,
-        )
-
-        settingsDestination(
             onBackClick = navController::popBackStack,
         )
     }

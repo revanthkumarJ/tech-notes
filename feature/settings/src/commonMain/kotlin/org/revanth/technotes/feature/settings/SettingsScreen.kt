@@ -9,6 +9,7 @@
  */
 package org.revanth.technotes.feature.settings
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,8 +17,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,6 +31,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
 import org.revanth.technotes.core.designsystem.icon.AppIcons
@@ -38,6 +45,7 @@ import technotes.feature.settings.generated.resources.feature_settings_change_th
 import template.core.base.analytics.AnalyticsHelper
 import template.core.base.analytics.TrackScreenView
 import template.core.base.analytics.rememberAnalyticsHelper
+import template.core.base.ui.ShareUtils
 
 @Composable
 internal fun SettingsScreen(
@@ -80,22 +88,57 @@ internal fun SettingsScreenContent(
         modifier = modifier,
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier=Modifier.fillMaxSize().padding(horizontal = 16.dp, vertical = 8.dp),
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
-            // SettingsScreenContent
-            ThemeCard(onClick = onThemeCardClick)
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                SettingsItemCard(
+                    onClick = onThemeCardClick,
+                    icon = AppIcons.Sun,
+                    text = stringResource(Res.string.feature_settings_change_theme_text)
+                )
+
+                SettingsItemCard(
+                    onClick = {
+                        ShareUtils.openUrl("https://revanthkumarjportfolio.vercel.app/")
+                    },
+                    icon = AppIcons.Profile,
+                    text = "About Us"
+                )
+
+                SettingsItemCard(
+                    onClick = {
+                        ShareUtils.mailHelpline()
+                    },
+                    icon = AppIcons.Contact,
+                    text = "Contact Us"
+                )
+
+                SettingsItemCard(
+                    onClick = {
+                        ShareUtils.openAppInfo()
+                    },
+                    icon = AppIcons.Info,
+                    text = "App Info"
+                )
+            }
+            SettingsScreenFooter()
         }
     }
 }
 
 @Composable
-internal fun ThemeCard(
+internal fun SettingsItemCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-) {
+    icon: ImageVector,
+    text:String
+){
     OutlinedCard(
         shape = RoundedCornerShape(8.dp),
         elevation = CardDefaults.cardElevation(
@@ -105,14 +148,14 @@ internal fun ThemeCard(
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(
-                imageVector = AppIcons.Sun,
+                imageVector = icon,
                 contentDescription = null,
                 modifier = Modifier
                     .padding(horizontal = 8.dp)
                     .clip(shape = RoundedCornerShape(50.dp)),
             )
             Text(
-                text = stringResource(Res.string.feature_settings_change_theme_text),
+                text = text,
                 modifier = Modifier.weight(1F),
             )
             IconButton(
@@ -120,13 +163,63 @@ internal fun ThemeCard(
             ) {
                 Icon(
                     imageVector = AppIcons.ArrowRight,
-                    contentDescription = stringResource(Res.string.feature_settings_change_theme_placeholder_text),
+                    contentDescription = text,
                 )
             }
         }
     }
 }
 
+@Composable
+fun SettingsScreenFooter(
+    modifier: Modifier = Modifier,
+) {
+
+    Column(
+        modifier = modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        TextDivider(text = "Tech Notes")
+        Text(text = "Developed with Love By")
+        Text(
+            text = "Revanth Kumar J",
+            fontWeight = FontWeight.SemiBold,
+        )
+    }
+}
+
+@Composable
+private fun TextDivider(
+    text: String,
+    modifier: Modifier = Modifier,
+    textStyle: TextStyle = MaterialTheme.typography.bodySmall,
+    fontWeight: FontWeight = FontWeight.SemiBold,
+) {
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
+    ) {
+        HorizontalDivider(
+            modifier = Modifier
+                .weight(1f, true),
+        )
+
+        Text(
+            text = text,
+            style = textStyle,
+            fontWeight = fontWeight,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.weight(1f),
+        )
+
+        HorizontalDivider(
+            modifier = Modifier
+                .weight(1f, true),
+        )
+    }
+}
 private fun AnalyticsHelper.logSettingsDialogVisible(visible: Boolean) {
     logEvent(
         type = "settings_dialog_visible",

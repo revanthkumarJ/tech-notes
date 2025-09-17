@@ -71,7 +71,6 @@ include(":core:model")
 include(":core:analytics")
 
 include(":feature:home")
-include(":feature:profile")
 include(":feature:settings")
 include(":core:database")
 

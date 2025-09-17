@@ -39,4 +39,10 @@ expect object ShareUtils {
      * @param byte The raw image data as ByteArray
      */
     suspend fun shareImage(title: String, byte: ByteArray)
+
+    fun openAppInfo()
+
+    fun openUrl(url: String)
+
+    fun mailHelpline()
 }

@@ -44,8 +44,8 @@ import org.revanth.technotes.core.ui.NavigationItem
 import org.revanth.technotes.feature.home.TasksDestination
 import org.revanth.technotes.feature.home.navigateToTasks
 import org.revanth.technotes.feature.home.tasksGraph
-import org.revanth.technotes.feature.profile.navigateToProfile
-import org.revanth.technotes.feature.profile.profileDestination
+import org.revanth.technotes.feature.settings.navigateToSettings
+import org.revanth.technotes.feature.settings.settingsDestination
 import template.core.base.analytics.rememberAnalyticsHelper
 import template.core.base.ui.EventsEffect
 import template.core.base.ui.RootTransitionProviders
@@ -57,7 +57,6 @@ internal fun AuthenticatedNavbarNavigationScreen(
         name = "AuthenticatedNavbarScreen",
     ),
     viewModel: AuthenticatedNavbarNavigationViewModel = koinViewModel(),
-    navigateToSettingsScreen: () -> Unit,
 ) {
     val analyticsHelper = rememberAnalyticsHelper()
     val scope = rememberCoroutineScope()
@@ -77,7 +76,7 @@ internal fun AuthenticatedNavbarNavigationScreen(
                 AuthenticatedNavBarEvent.NavigateToProfileScreen -> {
                     analyticsHelper.logDestinationChanged(event.tab.startDestinationRoute)
                     navigateToTabOrRoot(tabToNavigateTo = event.tab) {
-                        navigateToProfile(navOptions = it)
+                        navigateToSettings(navOptions =it)
                     }
                 }
             }
@@ -100,7 +99,6 @@ internal fun AuthenticatedNavbarNavigationScreen(
         navController = navController,
         snackbarHostState = snackbarHostState,
         modifier = modifier,
-        navigateToSettingsScreen = navigateToSettingsScreen,
         onAction = remember(viewModel) {
             { viewModel.trySendAction(it) }
         },
@@ -110,7 +108,6 @@ internal fun AuthenticatedNavbarNavigationScreen(
 @Composable
 internal fun AuthenticatedNavbarNavigationScreenContent(
     navController: NavHostController,
-    navigateToSettingsScreen: () -> Unit,
     modifier: Modifier = Modifier,
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     onAction: (AuthenticatedNavBarAction) -> Unit,
@@ -118,7 +115,7 @@ internal fun AuthenticatedNavbarNavigationScreenContent(
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val navigationItems = persistentListOf<NavigationItem>(
         AuthenticatedNavBarTabItem.HomeTab,
-        AuthenticatedNavBarTabItem.ProfileTab,
+        AuthenticatedNavBarTabItem.SettingsTab,
     )
 
     KptRootScaffold(
@@ -134,7 +131,7 @@ internal fun AuthenticatedNavbarNavigationScreenContent(
                         onAction(AuthenticatedNavBarAction.HomeTabClick)
                     }
 
-                    is AuthenticatedNavBarTabItem.ProfileTab -> {
+                    is AuthenticatedNavBarTabItem.SettingsTab -> {
                         onAction(AuthenticatedNavBarAction.SettingsTabClick)
                     }
                 }
@@ -162,10 +159,11 @@ internal fun AuthenticatedNavbarNavigationScreenContent(
             // TOP LEVEL DESTINATION
             tasksGraph(
                 navController = navController,
-                onSettingsClick = navigateToSettingsScreen,
             )
 
-            profileDestination()
+            settingsDestination(
+                onBackClick = navController::popBackStack
+            )
         }
     }
 }

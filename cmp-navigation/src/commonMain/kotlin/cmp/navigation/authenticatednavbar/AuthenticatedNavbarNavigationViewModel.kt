@@ -74,6 +74,6 @@ internal sealed class AuthenticatedNavBarEvent {
     }
 
     data object NavigateToProfileScreen : AuthenticatedNavBarEvent() {
-        override val tab: AuthenticatedNavBarTabItem = AuthenticatedNavBarTabItem.ProfileTab
+        override val tab: AuthenticatedNavBarTabItem = AuthenticatedNavBarTabItem.SettingsTab
     }
 }

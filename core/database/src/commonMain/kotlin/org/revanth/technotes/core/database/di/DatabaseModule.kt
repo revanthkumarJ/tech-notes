@@ -15,7 +15,7 @@ import org.revanth.technotes.core.database.AppDatabase
 
 val DatabaseModule = module {
     includes(platformModule)
-    single { get<AppDatabase>().sampleDao }
+    single { get<AppDatabase>().noteDao }
 }
 
 @Suppress("NO_ACTUAL_FOR_EXPECT")

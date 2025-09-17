@@ -10,6 +10,7 @@
 package template.core.base.ui
 
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -25,6 +26,8 @@ import org.jetbrains.compose.resources.decodeToImageBitmap
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import android.provider.Settings
+import android.widget.Toast
 
 actual object ShareUtils {
 
@@ -101,5 +104,44 @@ actual object ShareUtils {
                 null
             }
         }
+    }
+
+    actual fun mailHelpline() {
+        val context = activityProvider.invoke().application.baseContext
+
+        val intent = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse("mailto:")
+            putExtra(Intent.EXTRA_EMAIL, arrayOf("jrevanth101@gmail.com"))
+            putExtra(Intent.EXTRA_SUBJECT, "User Query")
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        try {
+            context.startActivity(intent)
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(
+                context,
+                "There is no application that support this action",
+                Toast.LENGTH_SHORT,
+            ).show()
+        }
+    }
+
+    actual fun openAppInfo() {
+        val context = activityProvider.invoke().application.baseContext
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+            data = Uri.parse("package:${context.packageName}")
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        context.startActivity(intent)
+    }
+
+    actual fun openUrl(url: String) {
+        val context = activityProvider.invoke().application.baseContext
+        val uri = url.let { Uri.parse(url) } ?: return
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+            data = uri
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        context.startActivity(intent)
     }
 }

@@ -23,12 +23,11 @@ kotlin {
             implementation(projects.core.common)
             implementation(projects.core.datastore)
 
-            implementation(projects.core.datastore)
+            implementation(projects.core.database)
             implementation(projects.coreBase.common)
             implementation(projects.coreBase.platform)
 
             implementation(projects.feature.home)
-            implementation(projects.feature.profile)
             implementation(projects.feature.settings)
 
             //put your multiplatform dependencies here

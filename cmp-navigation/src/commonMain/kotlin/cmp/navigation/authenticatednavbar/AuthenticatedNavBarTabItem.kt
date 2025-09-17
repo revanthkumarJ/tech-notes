@@ -13,13 +13,14 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import cmp.navigation.generated.resources.Res
 import cmp.navigation.generated.resources.home
 import cmp.navigation.generated.resources.profile
+import cmp.navigation.generated.resources.settings
 import cmp.navigation.utils.toObjectNavigationRoute
 import org.jetbrains.compose.resources.StringResource
 import org.revanth.technotes.core.designsystem.icon.AppIcons
 import org.revanth.technotes.core.ui.NavigationItem
 import org.revanth.technotes.feature.home.TasksDestination
 import org.revanth.technotes.feature.home.TasksRoute
-import org.revanth.technotes.feature.profile.ProfileRoute
+import org.revanth.technotes.feature.settings.SettingsRoute
 
 sealed class AuthenticatedNavBarTabItem : NavigationItem {
 
@@ -35,25 +36,25 @@ sealed class AuthenticatedNavBarTabItem : NavigationItem {
         override val graphRoute: String
             get() = TasksDestination.toObjectNavigationRoute()
         override val startDestinationRoute: String
-            get() = TasksRoute.toObjectNavigationRoute()
+            get() = TasksDestination.toObjectNavigationRoute()
         override val testTag: String
             get() = "HomeTab"
     }
 
-    data object ProfileTab : AuthenticatedNavBarTabItem() {
+    data object SettingsTab : AuthenticatedNavBarTabItem() {
         override val selectedIcon: ImageVector
-            get() = AppIcons.ProfileBoarder
+            get() = AppIcons.Settings
         override val icon: ImageVector
-            get() = AppIcons.Profile
+            get() = AppIcons.SettingsOutlined
         override val labelRes: StringResource
-            get() = Res.string.profile
+            get() = Res.string.settings
         override val contentDescriptionRes: StringResource
-            get() = Res.string.profile
+            get() = Res.string.settings
         override val graphRoute: String
-            get() = ProfileRoute.toObjectNavigationRoute()
+            get() = SettingsRoute.toObjectNavigationRoute()
         override val startDestinationRoute: String
-            get() = ProfileRoute.toObjectNavigationRoute()
+            get() = SettingsRoute.toObjectNavigationRoute()
         override val testTag: String
-            get() = "ProfileTab"
+            get() = "SettingsTab"
     }
 }

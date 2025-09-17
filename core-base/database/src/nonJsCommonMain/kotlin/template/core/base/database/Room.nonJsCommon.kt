@@ -10,12 +10,14 @@
 package template.core.base.database
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.Insert
 import androidx.room.PrimaryKey
 import androidx.room.Query
+import androidx.room.Update
 
 /**
  * Multiplatform typealiases for Room database annotations and interfaces.
@@ -45,6 +47,10 @@ actual typealias Query = Query
  * Used to annotate methods in DAOs for insert operations.
  */
 actual typealias Insert = Insert
+
+actual typealias Update = Update
+
+actual typealias Delete = Delete
 
 /**
  * Typealias for the Room `@PrimaryKey` annotation.

@@ -21,6 +21,8 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.coreBase.platform)
             implementation(projects.coreBase.datastore)
+            implementation(projects.core.database)
+            implementation(projects.coreBase.common)
 
 
             implementation(compose.ui)

@@ -15,6 +15,7 @@ import cmp.navigation.rootnav.RootNavViewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 import org.revanth.technotes.core.data.di.DataModule
+import org.revanth.technotes.core.database.di.DatabaseModule
 import org.revanth.technotes.core.datastore.di.DatastoreModule
 import org.revanth.technotes.feature.home.di.HomeModule
 import org.revanth.technotes.feature.settings.SettingsModule
@@ -48,6 +49,7 @@ object KoinModules {
 
     val allModules = listOf(
         dataModule,
+        DatabaseModule,
         dispatcherModule,
         analyticsModule,
         DatastoreModule,

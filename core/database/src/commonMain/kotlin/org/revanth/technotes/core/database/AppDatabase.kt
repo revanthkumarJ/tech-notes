@@ -9,9 +9,10 @@
  */
 package org.revanth.technotes.core.database
 
+import org.revanth.technotes.core.database.dao.NoteDao
 import org.revanth.technotes.core.database.dao.SampleDao
 
 @Suppress("NO_ACTUAL_FOR_EXPECT")
 expect abstract class AppDatabase {
-    abstract val sampleDao: SampleDao
+    abstract val noteDao: NoteDao
 }

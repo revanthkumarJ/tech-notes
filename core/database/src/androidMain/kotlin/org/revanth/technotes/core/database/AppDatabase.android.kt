@@ -12,13 +12,15 @@ package org.revanth.technotes.core.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import org.revanth.technotes.core.database.dao.NoteDao
 import org.revanth.technotes.core.database.dao.SampleDao
+import org.revanth.technotes.core.database.entity.NoteEntity
 import org.revanth.technotes.core.database.entity.SampleEntity
 import org.revanth.technotes.core.database.utils.ChargeTypeConverters
 
 @Database(
     entities = [
-        SampleEntity::class,
+        NoteEntity::class,
     ],
     version = AppDatabase.VERSION,
     exportSchema = true,
@@ -27,10 +29,10 @@ import org.revanth.technotes.core.database.utils.ChargeTypeConverters
 @TypeConverters(ChargeTypeConverters::class)
 actual abstract class AppDatabase : RoomDatabase() {
 
-    actual abstract val sampleDao: SampleDao
+    actual abstract val noteDao: NoteDao
 
     companion object {
         const val VERSION = 1
-        const val DATABASE_NAME = "mifos_database.db"
+        const val DATABASE_NAME = "revanth_notes.db"
     }
 }

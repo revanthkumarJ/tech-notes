@@ -9,15 +9,13 @@
  */
 package org.revanth.technotes.feature.home.di
 
+import androidx.lifecycle.viewmodel.compose.viewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
-import org.revanth.technotes.feature.home.service.StorageService
-import org.revanth.technotes.feature.home.service.StorageServiceImpl
-import org.revanth.technotes.feature.home.task.EditTaskViewModel
-import org.revanth.technotes.feature.home.tasks.TasksViewModel
+import org.revanth.technotes.feature.home.addNote.AddNoteViewModel
+import org.revanth.technotes.feature.home.home.HomeViewModel
 
 val HomeModule = module {
-    single<StorageService> { StorageServiceImpl() }
-    viewModelOf(::TasksViewModel)
-    viewModelOf(::EditTaskViewModel)
+    viewModelOf(::AddNoteViewModel)
+    viewModelOf(::HomeViewModel)
 }

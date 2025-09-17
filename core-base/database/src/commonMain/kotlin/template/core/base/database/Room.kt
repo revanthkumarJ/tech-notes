@@ -78,6 +78,10 @@ expect annotation class Insert(
     val onConflict: Int,
 )
 
+expect annotation class Update()
+
+expect annotation class Delete()
+
 /**
  * Cross-platform annotation for marking entity fields as primary keys.
  *

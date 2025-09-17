@@ -14,8 +14,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.navigation
 import kotlinx.serialization.Serializable
-import org.revanth.technotes.feature.home.task.EditTaskScreen
-import org.revanth.technotes.feature.home.tasks.TasksScreen
+import org.revanth.technotes.feature.home.addNote.AddNoteScreen
+import org.revanth.technotes.feature.home.home.HomeScreen
 import template.core.base.ui.composableWithPushTransitions
 import template.core.base.ui.composableWithStayTransitions
 
@@ -40,22 +40,20 @@ fun NavController.navigateToAddEditTask(taskId: Int? = null, navOptions: NavOpti
 
 fun NavGraphBuilder.tasksGraph(
     navController: NavController,
-    onSettingsClick: () -> Unit,
 ) {
     navigation<TasksDestination>(
         startDestination = TasksRoute,
     ) {
         composableWithStayTransitions<TasksRoute> {
-            TasksScreen(
-                onAddEditNewTask = navController::navigateToAddEditTask,
-                onSettingsClick = onSettingsClick,
+            HomeScreen(
+                navigateToAddNote = navController::navigateToAddEditTask,
+                navigateToEditNote = {},
             )
         }
 
         composableWithPushTransitions<AddEditTaskRoute> {
-            EditTaskScreen(
-                navigateBack = navController::navigateUp,
-                onTaskSaved = navController::navigateUp,
+            AddNoteScreen(
+                navigateBack = navController::popBackStack
             )
         }
     }
